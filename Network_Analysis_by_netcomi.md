@@ -1,12 +1,12 @@
 ---
-title: "Network_Analysis_by_netcomi"
+title: "Network Analysis by netcomi"
 output: 
   html_document: 
     keep_md: true
 date: "2024-07-24"
 ---
 
-
+##About Networks
 
   Networks are used all around: Political science, games, ecology, metabolics, etc. Co-occurrence networks assume that when two subjects, such as animals, people, or virtual connections, are frequently appearing together that they are associating in some way. For example, two people frequently messaging on social media are likely friends and an individual who is often messaged or retweeted is important to the structure of the community they've surrounded themselves with, just like an influencer.
   We can do similar things with microbial communities. By looking at Amplicon sequencing data from environmental samples. we can see which species or taxa often occur together. This can imply potential interactions (such as predation or symbiosis) or a reliance on similar conditions for survival. One of the most important parts about networks is that the statistics are all dependent, and it is this dependency that interests us.
@@ -206,7 +206,7 @@ network$cal_network(COR_p_thres = .05,COR_cut=.6,add_taxa_name = c("Kingdom",
 ```
 
 ```
-## ---------------- 2024-07-24 16:35:27.159755 : Start ----------------
+## ---------------- 2024-07-25 12:15:51.993994 : Start ----------------
 ```
 
 ```
@@ -214,7 +214,7 @@ network$cal_network(COR_p_thres = .05,COR_cut=.6,add_taxa_name = c("Kingdom",
 ```
 
 ```
-## ---------------- 2024-07-24 16:35:27.500901 : Finish ----------------
+## ---------------- 2024-07-25 12:15:52.242735 : Finish ----------------
 ```
 
 ```
@@ -253,36 +253,36 @@ network$save_network(filepath = "network.gexf")
 
   Great, we have a network! The fun part of visualizing it occurs in Gephi. First, we have to open gephi and open our new Gephi file which should be saved in the same place as your R repository:
 
-![Opening Gephi File](https://github.com/BKrzysiak/Amplicon-Analysis-Pipeline/blob/main/Gephi%20Reference%20Images/Screenshot%202024-07-24%20154218.png)
+![Opening Gephi File](C:/Users/eckha/OneDrive/Documents/Amplicon-Analysis-Pipeline/Gephi Reference Images/Screenshot 2024-07-24 154218.png)
 
 
   When you open it, a screen like this should appear. Simply make sure that graph type is "undirected" and hit ok.
 
-![Finishing importing](https://github.com/BKrzysiak/Amplicon-Analysis-Pipeline/blob/main/Gephi%20Reference%20Images/Screenshot%202024-07-24%20154241.png)
+![Finishing importing](C:/Users/eckha/OneDrive/Documents/Amplicon-Analysis-Pipeline/Gephi Reference Images/Screenshot 2024-07-24 154241.png)
   
   
   Now your network is in! And looking like a weird orange glob. Since this isn't the most imformative, lets use Gephi's tool to improve the appearance of this network. First, lets work in the appearance tab. From here we can modify the color, size, labels, and text of nodes and edges. Lets change the color of our nodes so that they represent their Family.
   To do so, we click on the paint pallete symbol and make sure node is selected. Click on the partition tab and select Family. Hit apply.
   
-  ![Partitioning Color](https://github.com/BKrzysiak/Amplicon-Analysis-Pipeline/blob/main/Gephi%20Reference%20Images/Screenshot%202024-07-24%20155239.png)
+  ![Partitioning Color](C:/Users/eckha/OneDrive/Documents/Amplicon-Analysis-Pipeline/Gephi Reference Images/Screenshot 2024-07-24 155239.png)
   
   
   Well, it seems that there aren't enough colors in the palette. Lets generate a better palette. We can do so by clicking Palette... above apply. From here, we click on generate. Turn of "limit number of colors" and hit generate. You are also able to change the range of colors through the "presets" dropdown.
   
-  ![Clicking on palette](https://github.com/BKrzysiak/Amplicon-Analysis-Pipeline/blob/main/Gephi%20Reference%20Images/Screenshot%202024-07-24%20155736.png)
-  ![Generating a palette](https://github.com/BKrzysiak/Amplicon-Analysis-Pipeline/blob/main/Gephi%20Reference%20Images/Screenshot%202024-07-24%20155814.png)
+  ![Clicking on palette](C:/Users/eckha/OneDrive/Documents/Amplicon-Analysis-Pipeline/Gephi Reference Images/Screenshot 2024-07-24 155736.png)
+  ![Generating a palette](C:/Users/eckha/OneDrive/Documents/Amplicon-Analysis-Pipeline/Gephi Reference Images/Screenshot 2024-07-24 155814.png)
   
 
   Now we can hit Ok and when we check our palette options you should see the new palette. Apply it. Now that our blob is colorful, we can modify our nodes further. We can make the size of each node correlate to some helpful information, such as the relative abundance of our taxa. To do so click on the size tab (stacked circles). From here make sure you are on "Nodes" and click on the "Ranking" tab. click on RelativeAbundance in the dropdown menu. From here you'll get the option to change the minimum and maximum size. change these to what you like and hit apply.
   
-  ![Node Size](https://github.com/BKrzysiak/Amplicon-Analysis-Pipeline/blob/main/Gephi%20Reference%20Images/Screenshot%202024-07-24%20161316.png)
+  ![Node Size](C:/Users/eckha/OneDrive/Documents/Amplicon-Analysis-Pipeline/Gephi Reference Images/Screenshot 2024-07-24 161316.png)
   
   
   Now we can de-blob our network. The Layout pane allows us to change how our network is visually structured. There are a lot of options ranging from simple displays to force directed algorithms such as the Yifan Hu layout. Lets try a simple display first.
   click on the "choose a layout dropdown" and select "Fruchterman Reingold". Once you click on it, you will be able to modify the graph area, the gravity, and the speed. Mess with these as you like! If you ever need to "reset it", select "Random Layout" and hit run. Once you have a setting you like, run the Fruchterman Reingold layout.
   
-  ![Layout](https://github.com/BKrzysiak/Amplicon-Analysis-Pipeline/blob/main/Gephi%20Reference%20Images/Screenshot%202024-07-24%20161823.png)
-  ![Frucht Layout](https://github.com/BKrzysiak/Amplicon-Analysis-Pipeline/blob/main/Gephi%20Reference%20Images/Screenshot%202024-07-24%20162103.png)
+  ![Layout](C:/Users/eckha/OneDrive/Documents/Amplicon-Analysis-Pipeline/Gephi Reference Images/Screenshot 2024-07-24 161823.png)
+  ![Frucht Layout](C:/Users/eckha/OneDrive/Documents/Amplicon-Analysis-Pipeline/Gephi Reference Images/Screenshot 2024-07-24 162103.png)
   
   
   Now that the layout is built, we can continue modifying to make it visually more appealing. In this case, I would change the size of the nodes so that they are more visible and maybe even reconsider some of the abhorrent color choices I made...
