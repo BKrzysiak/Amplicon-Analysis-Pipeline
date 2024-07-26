@@ -210,7 +210,7 @@ network$cal_network(COR_p_thres = .05,COR_cut=.6,add_taxa_name = c("Kingdom",
 ```
 
 ```
-## ---------------- 2024-07-26 14:30:06.607036 : Start ----------------
+## ---------------- 2024-07-26 14:36:29.526483 : Start ----------------
 ```
 
 ```
@@ -218,7 +218,7 @@ network$cal_network(COR_p_thres = .05,COR_cut=.6,add_taxa_name = c("Kingdom",
 ```
 
 ```
-## ---------------- 2024-07-26 14:30:06.856366 : Finish ----------------
+## ---------------- 2024-07-26 14:36:29.863887 : Finish ----------------
 ```
 
 ```
@@ -390,7 +390,7 @@ network16S$cal_network(COR_p_thres = .05,COR_cut=.6,add_taxa_name = c("Kingdom",
 ```
 
 ```
-## ---------------- 2024-07-26 14:30:39.585091 : Start ----------------
+## ---------------- 2024-07-26 14:37:03.69965 : Start ----------------
 ```
 
 ```
@@ -398,7 +398,7 @@ network16S$cal_network(COR_p_thres = .05,COR_cut=.6,add_taxa_name = c("Kingdom",
 ```
 
 ```
-## ---------------- 2024-07-26 14:30:39.984625 : Finish ----------------
+## ---------------- 2024-07-26 14:37:04.210093 : Finish ----------------
 ```
 
 ```
@@ -456,7 +456,7 @@ network16S$res_network_attr
 View(network16S$res_network_attr)
 ```
 
-  From these network attributes, we can see that there are 157 taxa represented in the network with a total of 653 connections, or edges, between them. Additionally, we can start to get an idea as to how tight this network is. It appears to have a low density with a higher modularity, which suggests that the network is spread far with many taxa forming tight groups.
+  From these network attributes, we can see that there are 478 OTU represented in the network with a total of 5,108 connections, or edges, between them. Additionally, we can start to get an idea as to how tight this network is. It appears to have a low density with a higher modularity, which suggests that the network is spread far with many taxa forming tight groups.
   Network attributes are excellent when comparing between networks, while comparing between modules in a network requires us to look at the node & edge table itself. 
   
 

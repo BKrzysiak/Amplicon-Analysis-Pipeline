@@ -157,7 +157,7 @@ network16S$res_network_attr
 View(network16S$res_network_attr)
 ```
 
-  From these network attributes, we can see that there are 157 taxa represented in the network with a total of 653 connections, or edges, between them. Additionally, we can start to get an idea as to how tight this network is. It appears to have a low density with a higher modularity, which suggests that the network is spread far with many taxa forming tight groups.
+  From these network attributes, we can see that there are 478 OTU represented in the network with a total of 5,108 connections, or edges, between them. Additionally, we can start to get an idea as to how tight this network is. It appears to have a low density with a higher modularity, which suggests that the network is spread far with many taxa forming tight groups.
   Network attributes are excellent when comparing between networks, while comparing between modules in a network requires us to look at the node & edge table itself. 
   
 ```{r Node table, Edge table, adjacency matrix}
