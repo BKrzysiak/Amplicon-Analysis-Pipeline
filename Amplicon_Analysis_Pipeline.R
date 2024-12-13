@@ -150,23 +150,23 @@ Rarecurve_ex+theme(plot.background = element_rect(fill="grey15"))+
   theme(axis.title.y = element_text(colour = "grey99"))+theme(axis.title.x = element_text(colour = "grey99"))+
   theme(legend.background = element_rect(fill = "gray20"))+theme(legend.text = element_text(colour = "grey90"))+
   theme(legend.title =element_text(colour = "grey90"))+theme(legend.position="none")
-#Rarefaction
+#Rarefaction. Use value as determined by rarefaction curves
 mirl_ps <- mirl(ps, libsize = 2500, rep = 100, set.seed = 120)
 
-#Converting from Mirlyn to phyloseq step 1
+##Converting from Mirl object to Phyloseq Object
+#Set multiple OTU tables from mirlyn as list
 mirl_otu <- vector("list", length(mirl_ps))
 
 for (i in 1:length(mirl_ps)){
-  colnames(mirl_ps[[i]]@otu_table) <- paste0(colnames(mirl_ps[[i]]@otu_table), "_",i)
+  colnames(mirl_ps[[i]]@otu_table) <- paste0(colnames(mirl_ps[[i]]@otu_table), "_" , i)
   (mirl_otu[[i]] <- mirl_ps[[i]]@otu_table)
 }
 
 mirl_rep_df <- do.call(cbind, mirl_otu)
-
 example_id <- ps@sam_data$X
-
 average_counts <- vector("list", length(example_id))
 
+#Setting rowname to match phyloseq metadata
 for (i in 1:length(example_id)){
   sample_df <- mirl_rep_df[,grepl(example_id[[i]], colnames(mirl_rep_df))]
   sample_average <- data.frame(rowMeans(sample_df))
@@ -174,7 +174,18 @@ for (i in 1:length(example_id)){
   average_counts[[i]] <- sample_average
 }
 average_count_df <- do.call(cbind, average_counts)
-#(INCOMPLETE)#
+#Remove columns with NAs. Take note which samples were removed
+average_count_df_na<-average_count_df[, colSums(is.na(average_count_df))<nrow(average_count_df)]
+#Multiplying by 100 moves the decimal place of fractions so the OTU table only contains integers
+average_count_df_na<-average_count_df_na*100
+#Now remerge it. Phyloseq will automatically omit any columns with NAs that were removed.
+tax  = ps@tax_table
+tax<-as.matrix(tax)
+sam<-ps@sam_data
+sam$date <- as.Date(sam$Date, "%m/%d/%Y")
+average_count_mat<-as.matrix(average_count_df_na)
+psr<-phyloseq(otu_table(average_count_mat,taxa_are_rows = TRUE),sample_data(sam),tax_table(tax))
+
 ## You are now ready to start plotting and analyzing your data!
 
 #### Taxanomic Analysis ####
