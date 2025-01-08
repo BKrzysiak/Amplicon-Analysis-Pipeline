@@ -124,19 +124,6 @@ ps <- phyloseq(otu_table(seqtab.nochim, taxa_are_rows=FALSE),
                 sample_data(meta), 
                 tax_table(taxa))
 
-#### Moving into microeco (https://chiliubio.github.io/microeco_tutorial/) ####
-
-# from phyloseq to microtable object
-psmeco <- phyloseq2meco(ps)
-psmeco
-
-# Subsetting Data (optional based on how your data is set up)
-sub1 <- subset_samples(ps, metadata.variable=="X") # Change metadata variable to whatever you want to subset with
-sub1meco <- phyloseq2meco(sub1)
-
-# Filtering out contaminants and bacterial sequences
-FRX_meco$filter_pollution(taxa = c("Prokaryota", "Bacteria"))
-
 ## Rarefaction
 
 #Load the Mirlyn package (adapted from https://github.com/escamero/mirlyn/)
@@ -195,7 +182,8 @@ psr<-phyloseq(otu_table(average_count_mat,taxa_are_rows = TRUE),sample_data(sam)
 
 ## You are now ready to start plotting and analyzing your data!
 
-#### Taxanomic Analysis ####
+#### Migrating to Microeco & Taxanomic Analysis ####
+
 ### Analysis code adapted from Liu, Chi, et al. "microeco: an R package for data mining in microbial community ecology." FEMS microbiology ecology 97.2 (2021): fiaa255. (https://chiliubio.github.io/microeco_tutorial/)
 
 ## from phyloseq to microtable object
