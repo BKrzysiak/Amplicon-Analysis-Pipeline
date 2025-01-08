@@ -120,7 +120,6 @@ meta <- meta %>%
   tibble::column_to_rownames("Sample")
 
 # Building the phyloseq object
-
 ps <- phyloseq(otu_table(seqtab.nochim, taxa_are_rows=FALSE), 
                 sample_data(meta), 
                 tax_table(taxa))
@@ -139,17 +138,21 @@ sub1meco <- phyloseq2meco(sub1)
 FRX_meco$filter_pollution(taxa = c("Prokaryota", "Bacteria"))
 
 ## Rarefaction
----- Eckhardt please add this code ----
+
 #Load the Mirlyn package (adapted from https://github.com/escamero/mirlyn/)
-  library(mirlyn); packageVersion("mirlyn")
+library(mirlyn); packageVersion("mirlyn")
+
 #Check ideal library size for the samples
 Rarefy_whole_rep_ps <- rarefy_whole_rep(ps,rep = 100)
+
 Rarecurve_ex <- rarecurve(Rarefy_whole_rep_ps, sample ="Sample")
+
 Rarecurve_ex+theme(plot.background = element_rect(fill="grey15"))+
   theme(panel.background = element_rect(fill="gray10"))+theme(axis.text = element_text(colour = "grey90"))+
   theme(axis.title.y = element_text(colour = "grey99"))+theme(axis.title.x = element_text(colour = "grey99"))+
   theme(legend.background = element_rect(fill = "gray20"))+theme(legend.text = element_text(colour = "grey90"))+
   theme(legend.title =element_text(colour = "grey90"))+theme(legend.position="none")
+
 #Rarefaction. Use value as determined by rarefaction curves
 mirl_ps <- mirl(ps, libsize = 2500, rep = 100, set.seed = 120)
 
@@ -173,11 +176,15 @@ for (i in 1:length(example_id)){
   colnames(sample_average) <- example_id[[i]]
   average_counts[[i]] <- sample_average
 }
+
 average_count_df <- do.call(cbind, average_counts)
+
 #Remove columns with NAs. Take note which samples were removed
 average_count_df_na<-average_count_df[, colSums(is.na(average_count_df))<nrow(average_count_df)]
+
 #Multiplying by 100 moves the decimal place of fractions so the OTU table only contains integers
 average_count_df_na<-average_count_df_na*100
+
 #Now remerge it. Phyloseq will automatically omit any columns with NAs that were removed.
 tax  = ps@tax_table
 tax<-as.matrix(tax)
@@ -189,4 +196,27 @@ psr<-phyloseq(otu_table(average_count_mat,taxa_are_rows = TRUE),sample_data(sam)
 ## You are now ready to start plotting and analyzing your data!
 
 #### Taxanomic Analysis ####
+### Analysis code adapted from Liu, Chi, et al. "microeco: an R package for data mining in microbial community ecology." FEMS microbiology ecology 97.2 (2021): fiaa255. (https://chiliubio.github.io/microeco_tutorial/)
 
+## from phyloseq to microtable object
+psmeco <- phyloseq2meco(ps)
+# This is now in a form usable by the microeco package
+psmeco
+
+# Subsetting samples (if necessary)
+pssub <- subset_samples(ps, metadata_category=="data_to_separate")
+pssubmeco <- phyloseq2meco(pssub)
+
+# Filter out bacterial ASVs (PR2 database picks up a few bacterial taxa, so unless you are interested make sure to run this)
+psmeco$filter_pollution(taxa = c("Prokaryota", "Bacteria", "Proteobacteria"))
+
+## Abundance Analysis
+# Relative abundance
+# May need to manually assign taxa colors for consistency, this will assign in order of most --> least abundant
+t1 <- trans_abund$new(dataset = psmeco, taxrank = "Class", ntaxa = 20)
+t1$plot_bar(others_color = "grey70", facet = "METADATA_CATEGORY", xtext_keep = FALSE, 
+            legend_text_italic = FALSE, color_values = paletteer_d("ggthemes::Classic_20")) + 
+  theme(legend.text = element_text(size = 14), legend.title = element_text(size = 18), 
+        axis.text.y = element_text(size = 16), 
+        plot.title = element_text(size = 18, hjust = 0.5)) + 
+  ggtitle("TITLE")
