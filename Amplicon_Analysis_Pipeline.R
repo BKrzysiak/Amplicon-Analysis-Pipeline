@@ -169,7 +169,8 @@ average_count_df <- do.call(cbind, average_counts)
 #Remove columns with NAs. Take note which samples were removed
 average_count_df_na<-average_count_df[, colSums(is.na(average_count_df))<nrow(average_count_df)]
 
-#Multiplying by 100 moves the decimal place of fractions so the OTU table only contains integers
+#Multiplying by 100 moves the decimal place of fractions so the OTU table only contains integers. This transformation
+#Should be applied to all datasets you plan to compare in downstream analysis
 average_count_df_na<-average_count_df_na*100
 
 #Now remerge it. Phyloseq will automatically omit any columns with NAs that were removed.
@@ -188,6 +189,7 @@ psr<-phyloseq(otu_table(average_count_mat,taxa_are_rows = TRUE),sample_data(sam)
 
 ## from phyloseq to microtable object
 psmeco <- phyloseq2meco(ps)
+psrmeco<- phyloseq2meco(psr)
 # This is now in a form usable by the microeco package
 psmeco
 
