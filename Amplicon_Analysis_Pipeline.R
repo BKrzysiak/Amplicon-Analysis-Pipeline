@@ -124,6 +124,12 @@ ps <- phyloseq(otu_table(seqtab.nochim, taxa_are_rows=FALSE),
                 sample_data(meta), 
                 tax_table(taxa))
 
+dna <- Biostrings::DNAStringSet(taxa_names(ps))
+names(dna) <- taxa_names(ps)
+ps <- merge_phyloseq(ps, dna)
+taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps)))
+ps  
+
 ## Rarefaction
 
 #Load the Mirlyn package (adapted from https://github.com/escamero/mirlyn/)
