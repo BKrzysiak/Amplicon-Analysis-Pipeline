@@ -1,5 +1,5 @@
 ---
-title: "Network Analysis by netcomi"
+title: "Network Analysis by microeco"
 output: 
   html_document: 
     keep_md: true
